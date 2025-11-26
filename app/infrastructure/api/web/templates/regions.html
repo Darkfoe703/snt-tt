@@ -1,0 +1,39 @@
+<!-- app/infrastructure/api/web/templates/regions.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<article>
+    <hgroup>
+        <h1>🌌 Regiones</h1>
+        <h2>Regiones monitoreadas en EVE Online</h2>
+    </hgroup>
+
+    <div class="grid">
+        <div class="card">
+            <h3>The Forge</h3>
+            <p><strong>ID:</strong> 10000002</p>
+            <p><strong>Hub Principal:</strong> Jita</p>
+            <p>El mercado más activo de EVE Online</p>
+            <a href="/market?region=10000002" role="button">Ver Mercado</a>
+        </div>
+
+        <div class="card">
+            <h3>Domain</h3>
+            <p><strong>ID:</strong> 10000043</p>
+            <p><strong>Hub Principal:</strong> Amarr</p>
+            <p>Mercado principal del Imperio Amarr</p>
+            <a href="/market?region=10000043" role="button">Ver Mercado</a>
+        </div>
+
+        <div class="card">
+            <h3>Sinq Laison</h3>
+            <p><strong>ID:</strong> 10000032</p>
+            <p><strong>Hub Principal:</strong> Dodixie</p>
+            <p>Mercado principal de Gallente</p>
+            <a href="/market?region=10000032" role="button">Ver Mercado</a>
+        </div>
+    </div>
+
+    <a href="/" role="button" class="secondary">← Volver al Dashboard</a>
+</article>
+{% endblock %}

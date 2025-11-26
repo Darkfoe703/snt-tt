@@ -1,0 +1,56 @@
+<!-- app/infrastructure/api/web/templates/base.html -->
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SNT Trade Tool - EVE Online{% endblock %}</title>
+
+    <!-- Pico CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="{{ static('css/main.css') }}">
+
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header-container">
+                <a href="/" class="logo">🚀 SNT Trade Tool</a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="/" class="{% if request.url.path == '/' %}active{% endif %}">Dashboard</a></li>
+                        <li><a href="/market"
+                                class="{% if request.url.path == '/market' %}active{% endif %}">Mercado</a></li>
+                        <li><a href="/regions"
+                                class="{% if request.url.path == '/regions' %}active{% endif %}">Regiones</a></li>
+                        <li><a href="/alerts"
+                                class="{% if request.url.path == '/alerts' %}active{% endif %}">Alertas</a></li>
+                        <li><a href="/api/docs" target="_blank">API</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p><strong>SNT Trade Tool</strong> - Herramienta de análisis de mercado para EVE Online</p>
+            <p><small>Estado ESI: <span style="color: #27ae60;">● Conectado</span></small></p>
+        </div>
+    </footer>
+
+    <!-- Table Sorter JS -->
+    <script src="{{ url_for('static', path='js/table-sorter.js') }}"></script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

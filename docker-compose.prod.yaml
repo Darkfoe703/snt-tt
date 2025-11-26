@@ -1,0 +1,16 @@
+services:
+  eve-bot-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: snt-tt-prod
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - ENVIRONMENT=production
+    restart: unless-stopped
+

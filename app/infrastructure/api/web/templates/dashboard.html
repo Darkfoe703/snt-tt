@@ -1,0 +1,65 @@
+<!-- app/infrastructure/api/web/templates/dashboard.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="grid">
+    <div>
+        <h1>🚀 SNT Trade Tool</h1>
+        <p>Herramienta de análisis de mercado para EVE Online</p>
+    </div>
+</div>
+
+<!-- Stats Cards -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <h3>📊 Regiones Activas</h3>
+        <p class="stat-number">3</p>
+        <small>The Forge, Domain, Sinq Laison</small>
+    </div>
+
+    <div class="stat-card">
+        <h3>🔔 Alertas</h3>
+        <p class="stat-number">0</p>
+        <small>Sin alertas configuradas</small>
+    </div>
+
+    <div class="stat-card">
+        <h3>⏰ Estado</h3>
+        <p class="stat-number" style="color: #27ae60;">Conectado</p>
+        <small>ESI Online</small>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<article>
+    <h2>Acciones Rápidas</h2>
+    <div class="grid">
+        <a href="/market" role="button" style="background: #3498db; color: white;">📈 Explorar Mercado</a>
+        <a href="/regions" role="button" class="secondary">🌌 Ver Regiones</a>
+        <a href="/alerts" role="button" class="secondary">🔔 Gestionar Alertas</a>
+        <a href="/api/docs" role="button" class="outline">📚 API Documentation</a>
+    </div>
+</article>
+
+<!-- Market Overview -->
+<article>
+    <h2>Vista General</h2>
+    <div class="grid">
+        <div>
+            <h4>📈 Análisis de Mercado</h4>
+            <p>Consulta órdenes de compra y venta en tiempo real. Analiza tendencias y oportunidades de arbitraje.</p>
+            <a href="/market" role="button">Ir al Mercado</a>
+        </div>
+        <div>
+            <h4>🌌 Gestión de Regiones</h4>
+            <p>Configura las regiones que quieres monitorear. The Forge, Domain, Sinq Laison y más.</p>
+            <a href="/regions" role="button" class="secondary">Ver Regiones</a>
+        </div>
+        <div>
+            <h4>🔔 Sistema de Alertas</h4>
+            <p>Configura notificaciones cuando los precios alcancen tus objetivos de compra o venta.</p>
+            <a href="/alerts" role="button" class="secondary">Configurar Alertas</a>
+        </div>
+    </div>
+</article>
+{% endblock %}
