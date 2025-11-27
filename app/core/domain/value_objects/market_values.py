@@ -2,6 +2,9 @@
 from dataclasses import dataclass
 from typing import NewType
 
+MIN_SPREAD_PERCENTAGE = 5.0
+MIN_VOLUME = 100
+
 # Type Aliases para mayor claridad
 ISK = NewType('ISK', float)
 ItemId = NewType('ItemId', int)
@@ -30,7 +33,7 @@ class MarketSpread:
     @property
     def absolute_spread(self) -> ISK:
         """Spread absoluto en ISK"""
-        return ISK(self.best_buy - self.best_sell)
+        return ISK(self.best_sell - self.best_buy)
     
     @property
     def percentage_spread(self) -> float:
@@ -44,7 +47,7 @@ class MarketSpread:
         """Volumen que se puede realmente tradear"""
         return Volume(min(self.buy_volume, self.sell_volume))
     
-    def is_viable(self, min_spread_percentage: float = 5.0, min_volume: Volume = Volume(100)) -> bool:
+    def is_viable(self, min_spread_percentage: float = MIN_SPREAD_PERCENTAGE, min_volume: Volume = MIN_VOLUME) -> bool:
         """Determina si el spread es viable para trading"""
         return (self.percentage_spread >= min_spread_percentage and 
                 self.tradable_volume >= min_volume)

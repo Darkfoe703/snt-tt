@@ -12,6 +12,7 @@ requires-python = ">=3.11"
 name = "snt-trade-tool"
 version = "0.1.0"
 description = "Bot de monitoreo de mercado para EVE Online"
+license = "GPL-3.0-or-later"
 
 [tool.poetry.dependencies]
 python = "^3.12"

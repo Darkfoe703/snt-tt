@@ -1,4 +1,4 @@
-# SNT TT
+#  SNT Trade Tool - A Tool for EVE Online Market 
 
 Herramienta para análisis de mercado de EVE Online.
 
