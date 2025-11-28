@@ -1,6 +1,34 @@
-# SNT TT
+#  SNT Trade Tool - A Tool for EVE Online Market 
 
 Herramienta para análisis de mercado de EVE Online.
+
+## Comandos Make
+
+El proyecto incluye un `Makefile` para facilitar las tareas comunes de desarrollo y despliegue.
+
+### Desarrollo
+
+- `make dev`: Iniciar entorno de desarrollo (construye si es necesario).
+- `make rebuild`: Reconstruir contenedores sin caché.
+- `make shell`: Acceder a la terminal del contenedor `eve-bot-dev`.
+- `make logs`: Ver logs en tiempo real.
+- `make down`: Detener y remover contenedores.
+- `make stop`: Detener contenedores sin removerlos.
+- `make rm`: Limpiar todo (contenedores, volúmenes, imágenes).
+- `make test`: Ejecutar tests.
+- `make lint`: Ejecutar linters.
+
+### Producción
+
+- `make build`: Construir imagen de producción.
+- `make prod`: Iniciar entorno de producción.
+- `make prod-logs`: Ver logs de producción.
+- `make prod-down`: Detener entorno de producción.
+- `make clean`: Limpiar sistema docker (prune).
+
+### Ayuda
+
+- `make help`: Mostrar la ayuda con todos los comandos disponibles.
 
 ## Comandos CLI
 
