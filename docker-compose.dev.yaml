@@ -6,12 +6,14 @@ services:
       target: development
     container_name: snt-tt-dev
     ports:
-      - "8000:8000"
+      - "8800:8800"
     volumes:
       - .:/app               # Monta el proyecto completo
       - ./logs:/app/logs
     environment:
       - ENVIRONMENT=development
       - PYTHONPATH=/app
-    command: poetry run uvicorn app.infrastructure.api.main:app --host 0.0.0.0 --port 8000 --reload
+    command: poetry run uvicorn app.infrastructure.api.main:app --host 0.0.0.0 --port 8800 --reload
+
+    restart: always
 

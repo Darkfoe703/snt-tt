@@ -50,7 +50,7 @@ async def market_view(
         )
         total_pages = math.ceil(results.total_opportunities / limit)
 
-    return templates.TemplateResponse("market.html", {
+    context = {
         "request": request,
         "title": "Mercado - SNT Trade Tool",
         "results": results,
@@ -62,7 +62,12 @@ async def market_view(
         "limit": limit,
         "analysis_limit": analysis_limit,
         "total_pages": total_pages
-    })
+    }
+
+    if request.headers.get("HX-Request"):
+        return templates.TemplateResponse("partials/market_results.html", context)
+
+    return templates.TemplateResponse("market.html", context)
 
 @router.get("/alerts", response_class=HTMLResponse)
 async def alerts_view(request: Request):

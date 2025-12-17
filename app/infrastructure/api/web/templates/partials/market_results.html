@@ -1,0 +1,62 @@
+{% if results %}
+<div class="card" style="margin-top: 2rem;">
+    <h3>📊 Resultados: {{ results.region_name }}</h3>
+    <p>Encontradas <strong>{{ results.total_opportunities }}</strong> oportunidades (Analizados {{
+        results.total_items_analyzed }} items)</p>
+
+    <figure>
+        <table id="opportunities-table" class="striped">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Compra</th>
+                    <th>Venta</th>
+                    <th>Ganancia</th>
+                    <th>ROI %</th>
+                    <th>Volumen</th>
+                    <th>Confianza</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for opp in results.opportunities %}
+                <tr>
+                    <td>{{ opp.name }}</td>
+                    <td data-sort="{{ opp.best_buy_price }}">{{ "{:,.0f}".format(opp.best_buy_price) }} ISK</td>
+                    <td data-sort="{{ opp.best_sell_price }}">{{ "{:,.0f}".format(opp.best_sell_price) }} ISK</td>
+                    <td data-sort="{{ opp.calculate_profit_per_unit() }}">{{
+                        "{:,.0f}".format(opp.calculate_profit_per_unit()) }} ISK</td>
+                    <td data-sort="{{ opp.calculate_profit_per_unit() / opp.best_buy_price * 100 }}">
+                        <strong>{{ "{:.1f}%".format(opp.calculate_profit_per_unit() / opp.best_buy_price * 100)
+                            }}</strong>
+                    </td>
+                    <td data-sort="{{ opp.buy_volume }}">{{ opp.buy_volume }} / {{ opp.sell_volume }}</td>
+                    <td data-sort="{{ opp.confidence }}">{{ "{:.0%}".format(opp.confidence) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </figure>
+
+    <!-- Paginación -->
+    <div class="grid">
+        {% if page > 1 %}
+        <a href="#"
+            hx-get="?region_id={{ region_id }}&min_volume={{ min_volume }}&min_spread={{ min_spread }}&limit={{ limit }}&analysis_limit={{ analysis_limit }}&submitted=true&page={{ page - 1 }}"
+            hx-target="#results-area" hx-indicator="#loading" role="button" class="outline">← Anterior</a>
+        {% else %}
+        <button disabled class="outline">← Anterior</button>
+        {% endif %}
+
+        <div style="text-align: center; padding-top: 10px;">
+            Página {{ page }} de {{ total_pages }}
+        </div>
+
+        {% if page < total_pages %} <a href="#"
+            hx-get="?region_id={{ region_id }}&min_volume={{ min_volume }}&min_spread={{ min_spread }}&limit={{ limit }}&analysis_limit={{ analysis_limit }}&submitted=true&page={{ page + 1 }}"
+            hx-target="#results-area" hx-indicator="#loading" role="button" class="outline">Siguiente →</a>
+            {% else %}
+            <button disabled class="outline">Siguiente →</button>
+            {% endif %}
+    </div>
+</div>
+{% endif %}

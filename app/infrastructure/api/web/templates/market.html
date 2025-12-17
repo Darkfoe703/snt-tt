@@ -10,7 +10,7 @@
 
     <div class="card">
         <h3>🔍 Explorador de Mercado</h3>
-        <form action="/market" method="get">
+        <form hx-get="/market" hx-target="#results-area" hx-indicator="#loading">
             <input type="hidden" name="submitted" value="true">
             <div class="grid">
                 <label for="region_id">
@@ -45,71 +45,36 @@
         </form>
     </div>
 
-    {% if results %}
-    <div class="card" style="margin-top: 2rem;">
-        <h3>📊 Resultados: {{ results.region_name }}</h3>
-        <p>Encontradas <strong>{{ results.total_opportunities }}</strong> oportunidades (Analizados {{
-            results.total_items_analyzed }} items)</p>
-
-        <figure>
-            <table id="opportunities-table" class="striped">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Compra</th>
-                        <th>Venta</th>
-                        <th>Ganancia</th>
-                        <th>ROI %</th>
-                        <th>Volumen</th>
-                        <th>Confianza</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for opp in results.opportunities %}
-                    <tr>
-                        <td>{{ opp.name }}</td>
-                        <td data-sort="{{ opp.best_buy_price }}">{{ "{:,.0f}".format(opp.best_buy_price) }} ISK</td>
-                        <td data-sort="{{ opp.best_sell_price }}">{{ "{:,.0f}".format(opp.best_sell_price) }} ISK</td>
-                        <td data-sort="{{ opp.calculate_profit_per_unit() }}">{{
-                            "{:,.0f}".format(opp.calculate_profit_per_unit()) }} ISK</td>
-                        <td data-sort="{{ opp.calculate_profit_per_unit() / opp.best_buy_price * 100 }}">
-                            <strong>{{ "{:.1f}%".format(opp.calculate_profit_per_unit() / opp.best_buy_price * 100)
-                                }}</strong>
-                        </td>
-                        <td data-sort="{{ opp.buy_volume }}">{{ opp.buy_volume }} / {{ opp.sell_volume }}</td>
-                        <td data-sort="{{ opp.confidence }}">{{ "{:.0%}".format(opp.confidence) }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </figure>
-
-        <!-- Paginación -->
-        <div class="grid">
-            {% if page > 1 %}
-            <a href="?region_id={{ region_id }}&min_volume={{ min_volume }}&min_spread={{ min_spread }}&page={{ page - 1 }}"
-                role="button" class="outline">← Anterior</a>
-            {% else %}
-            <button disabled class="outline">← Anterior</button>
-            {% endif %}
-
-            <div style="text-align: center; padding-top: 10px;">
-                Página {{ page }} de {{ total_pages }}
-            </div>
-
-            {% if page < total_pages %} <a
-                href="?region_id={{ region_id }}&min_volume={{ min_volume }}&min_spread={{ min_spread }}&page={{ page + 1 }}"
-                role="button" class="outline">Siguiente →</a>
-                {% else %}
-                <button disabled class="outline">Siguiente →</button>
-                {% endif %}
-        </div>
+    <!-- Loading Indicator -->
+    <div id="loading" class="htmx-indicator" style="text-align: center; margin-top: 2rem; display: none;">
+        <article aria-busy="true">Analizando mercado, por favor espere...</article>
     </div>
-    {% endif %}
 
-    <div class="grid">
+    <!-- Results Area -->
+    <div id="results-area">
+        {% include 'partials/market_results.html' %}
+    </div>
+
+    <div class="grid" style="margin-top: 2rem;">
         <a href="/" role="button" class="secondary">← Volver al Dashboard</a>
         <a href="/api/docs" role="button" class="outline">📚 Usar API</a>
     </div>
 </article>
+
+<style>
+    .htmx-indicator {
+        opacity: 0;
+        transition: opacity 200ms ease-in;
+    }
+
+    .htmx-request .htmx-indicator {
+        opacity: 1;
+        display: block !important;
+    }
+
+    .htmx-request.htmx-indicator {
+        opacity: 1;
+        display: block !important;
+    }
+</style>
 {% endblock %}
